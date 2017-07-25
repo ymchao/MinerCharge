@@ -1,0 +1,72 @@
+﻿<Window x:Class="MinerLampMangement.view.InOutData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="数据库处理" Height="300" Width="700" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="../Image/PollingCabinet.png">
+    <Grid>
+        <TabControl>
+            <TabItem Header="员工信息数据导入导出">
+                <GroupBox Header="导入数据">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition MaxHeight="30" />
+                            <RowDefinition MaxHeight="40" />
+                            <RowDefinition MaxHeight="40" />
+                            <RowDefinition MaxHeight="40" />
+                            <RowDefinition MaxHeight="40" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="1" Text="选择要导入的员工信息CSV文件：" VerticalAlignment="Center" TextAlignment="Right" />
+                        <Button Grid.Row="2" x:Name="OpenMinerInfoExeclBtn" Content="打开" Click="ImportMinerInfoBtn_OnClick" Style="{StaticResource MyWpfButton}" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="ExcelNameBox" Height="30" IsReadOnly="True" Style="{StaticResource Textboxstyle}"/>
+                        <TextBlock Grid.Row="3" Text="导出员工信息到CSV文件：" VerticalAlignment="Center" TextAlignment="Right" />
+                        <Button Grid.Row="4" x:Name="ExportMinerInfoBtn" Content="导出" Click="ExportMinerInfoBtn_OnClick"  Style="{StaticResource MyWpfButton}" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Height="30" IsReadOnly="True" Style="{StaticResource Textboxstyle}"/>
+                    </Grid>
+                </GroupBox>
+            </TabItem>
+            <TabItem Header="TM卡数据导入导出">
+                <GroupBox Header="导入数据">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition MaxHeight="30" />
+                            <RowDefinition MaxHeight="40" />
+                            <RowDefinition MaxHeight="40" />
+                            <RowDefinition MaxHeight="40" />
+                            <RowDefinition MaxHeight="40" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="1" Text="选择要导入的TM卡信息CSV文件" VerticalAlignment="Center" TextAlignment="Right" />
+                        <Button Grid.Row="2" x:Name="TmOpenExeclBtn" Content="打开" Click="ImportTmInfoBtn_OnClick"  Style="{StaticResource MyWpfButton}" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Height="30" IsReadOnly="True" Style="{StaticResource Textboxstyle}"/>
+                        <TextBlock Grid.Row="3" Text="导出tm卡信息到CSV文件：" VerticalAlignment="Center" TextAlignment="Right" />
+                        <Button Grid.Row="4" x:Name="ExportTmInfoBtn" Content="导出" Click="ExportTmInfoBtn_OnClick"  Style="{StaticResource MyWpfButton}" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Height="30" IsReadOnly="True" Style="{StaticResource Textboxstyle}"/>
+                    </Grid>
+                </GroupBox>
+            </TabItem>
+            <TabItem Header="删除历史数据">
+                <GroupBox Header="删除数据">
+                    <Grid>
+                        <CheckBox x:Name="CheckBox" Content=" 矿灯充电记录" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,73,0,0" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="删除此日期前：" VerticalAlignment="Top" Margin="420,50,0,0" FontSize="15"/>
+                        <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="420,75,0,0" Width="165" FontSize="15" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <Button x:Name="Deletebtn" Click="Deletebtn_OnClick" Content="删除" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="455,140,0,0" Style="{StaticResource MyWpfButton}"/>
+                    </Grid>
+                </GroupBox>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

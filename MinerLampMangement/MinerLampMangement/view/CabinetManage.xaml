@@ -1,0 +1,118 @@
+﻿<Window x:Class="MinerLampMangement.view.CabinetManage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MinerLampMangement.view"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="充电位管理" Height="500" Width="800" WindowStartupLocation="CenterScreen" Icon="../Image/CabinetSetup.png">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="充电位管理" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="15*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="充电柜选择：" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <ComboBox x:Name="ComboBox" DropDownClosed="ComboBox_OnDropDownClosed" Grid.Column="1"
+                          VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" />
+                <DataGrid x:Name="DataGrid" Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource DataGrid}"
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+                          MouseDoubleClick="DataGrid_OnMouseDoubleClick">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="柜号" Width="1*"
+                                            Binding="{Binding GroupId}"
+                                            ElementStyle="{StaticResource TextBlockstyle}" />
+                        <DataGridTextColumn Header="柜门号" Width="1*"
+                                            Binding="{Binding DeviceId}"
+                                            ElementStyle="{StaticResource TextBlockstyle}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="4*" />
+            </Grid.RowDefinitions>
+            <GroupBox Header="电脑开锁">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="充电柜号" Style="{StaticResource TextBlockstyle}" />
+                    <TextBlock Text="柜门号" Grid.Row="1" Style="{StaticResource TextBlockstyle}" />
+                    <TextBlock Text="延时" Grid.Row="2" Style="{StaticResource TextBlockstyle}" />
+                    <TextBox x:Name="CabinetIdBox" Text="{Binding ElementName=ComboBox,Path=SelectedValue}"
+                             Grid.Column="1" IsReadOnly="True" Style="{StaticResource Textboxstyle}" />
+                    <TextBox x:Name="DoorIdBox" Grid.Row="1" IsReadOnly="True" Grid.Column="1"
+                             Style="{StaticResource Textboxstyle}" />
+                    <toolkit:IntegerUpDown Grid.Row="2" Grid.Column="1" Margin="3" Text="1" />
+                    <Button x:Name="OpenOneDoor" Content="单门开锁" Grid.Column="2" Click="OpenOneDoor_OnClick"
+                            Style="{StaticResource MyWpfButton}" />
+                    <Button x:Name="OpenCabinet" Content="整柜开锁" Grid.Row="2" Grid.Column="2"
+                            Click="OpenCabinet_OnClick" Style="{StaticResource MyWpfButton}" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="TM卡号写入" Grid.Row="1">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="TM卡编号" Style="{StaticResource TextBlockstyle}" />
+                    <TextBox x:Name="TmIdTextBox" IsReadOnly="True" Grid.Column="1" Style="{StaticResource Textboxstyle}" />
+                    <TextBlock Text="TM卡号" Grid.Row="1" Style="{StaticResource TextBlockstyle}" />
+                    <TextBox x:Name="TmNumberTextBox" Grid.Column="1" Grid.Row="1" ToolTip="请确保使用读卡器，读入卡号！" Style="{StaticResource Textboxstyle}" />
+                    <Button Content="单门写入" Click="OneDoorWrite_OnClick" Grid.Row="0" Grid.Column="2" Style="{StaticResource MyWpfButton}" />
+                    <Button Content="整柜写入" Click="AllDoorWrite_OnClick"  Grid.Row="1" Grid.Column="2" Style="{StaticResource MyWpfButton}" />
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="3" FontSize="11" VerticalAlignment="Center" Text="(此处【Tm卡编号】为预设好的，不允许修改。【Tm卡号】为刷卡机刷入的。)"></TextBlock>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="柜门初始化" Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="单柜门初始化" Width="90" Grid.Column="0"  Style="{StaticResource MyWpfButton}" Click="OneDeviceInit_OnClick" />
+                    <Button Content="整柜初始化" Width="90" Grid.Column="1"  Style="{StaticResource MyWpfButton}" Click="OneGroupInit_OnClick" />
+                    <Button Content="所有柜组初始化" Width="100" Grid.Column="2"  Style="{StaticResource MyWpfButton}" Click="AllGroupInit_OnClick"/>
+                </Grid>
+            </GroupBox>
+
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,35 @@
+﻿<Window x:Class="MinerLampMangement.view.SignUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MinerLampMangement.view"
+        mc:Ignorable="d"
+        Title="账号注册" Height="300" Width="500" WindowStyle="None" WindowStartupLocation="CenterScreen" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Image Source="../Image/logo2.png" Stretch="Fill" Grid.ColumnSpan="5" Grid.RowSpan="5"></Image>
+         <TextBlock Text="用户名："  Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlockstyle}" FontWeight="Bold"></TextBlock>
+        <TextBlock Text="密码：" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockstyle}" FontWeight="Bold"></TextBlock>
+        <TextBlock Text="确认密码：" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBlockstyle}" FontWeight="Bold"></TextBlock>
+        <TextBox x:Name="Usernametxb" ToolTip="以字母和数字的组合作为用户名" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource Textboxstyle}"></TextBox>
+        <PasswordBox x:Name="PasswordBox1" ToolTip="以字母和数字的组合作为密码" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="3,18.1,3,18.1" VerticalContentAlignment="Center"></PasswordBox>
+        <PasswordBox x:Name="PasswordBox2" ToolTip="以字母和数字的组合作为密码" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="3,18.1,3,18.1" VerticalContentAlignment="Center"></PasswordBox>  
+        <Button x:Name="SignUpButton" Click="SignUpButton_OnClick" Content="注册" Grid.Row="4" Grid.Column="3" Style="{StaticResource MyWpfButton}"></Button>
+        <Button x:Name="CloseButton" Click="CloseButton_OnClick" Content="退出" Grid.Row="4" Grid.Column="1" Style="{StaticResource MyWpfButton}"></Button>
+
+    </Grid>
+</Window>

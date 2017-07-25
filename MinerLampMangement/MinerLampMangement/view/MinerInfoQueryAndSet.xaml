@@ -1,0 +1,118 @@
+﻿<Window x:Class="MinerLampMangement.view.MinerInfoSet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my="clr-namespace:MinerLampMangement.view.view2"
+        xmlns:tooltik="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="员工信息查询" Height="650" Width="1300" WindowStartupLocation="CenterScreen" Icon="../Image/5.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition MaxHeight="35"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.RowSpan="3" Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="4*" />
+                </Grid.RowDefinitions>
+                <GroupBox x:Name="GroupBox" Header="分类查询" Grid.Row="0">
+                    <Grid x:Name="Grid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MaxWidth="100" />
+                            <ColumnDefinition />
+                            <ColumnDefinition MaxWidth="50" />
+                            <ColumnDefinition MaxWidth="80" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <CheckBox x:Name="Name" Grid.Row="0" Grid.Column="0" Content="姓名"
+                                   VerticalAlignment="Center" />
+                        <CheckBox x:Name="JobNumber" Grid.Row="1" Grid.Column="0" Content="工号"
+                                  VerticalAlignment="Center" />
+                        <CheckBox x:Name="IdentityCardId" Grid.Row="2" Grid.Column="0" Content="身份证号"
+                                  VerticalAlignment="Center" />
+                        <TextBox x:Name="Namebox" Grid.Row="0" Grid.Column="1"
+                                 Style="{StaticResource Textboxstyle}" />
+                        <TextBox x:Name="Jobidbox" Grid.Row="1" Grid.Column="1"
+                                 Style="{StaticResource Textboxstyle}" />
+                        
+                        <TextBox x:Name="Identityidbox" Grid.Row="2" Grid.Column="1"
+                                 Style="{StaticResource Textboxstyle}" />
+
+                        <CheckBox x:Name="GroupId" Grid.Row="0" Grid.Column="3" Content="柜号"
+                                  VerticalAlignment="Center" IsChecked="True"/>
+                        <CheckBox x:Name="DeviceId" Grid.Row="1" Grid.Column="3" Content="柜门号"
+                                  VerticalAlignment="Center" />
+                        <CheckBox x:Name="Department" Grid.Row="2" Grid.Column="3" Content="部门"
+                                  VerticalAlignment="Center" />
+
+                        <tooltik:IntegerUpDown x:Name="CabinetIdbox" Value="1" AllowTextInput="False" Grid.Row="0"
+                                               Grid.Column="4" Minimum="1" Height="23" />
+                        <tooltik:IntegerUpDown x:Name="DoorIdbox" Value="1" AllowTextInput="False" Grid.Row="1"
+                                               Grid.Column="4" Minimum="1" Height="23" />
+                        <TextBox x:Name="Departmentbox" Grid.Row="2" Grid.Column="4"
+                                 Style="{StaticResource Textboxstyle}" />
+
+                        <Button x:Name="Searchbtn" Content="查询" Grid.Column="5" Grid.RowSpan="4" Height="50"
+                                Width="50" Click="Searchbtn_OnClick"
+                                Style="{StaticResource MyWpfButton}" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="查询结果" Grid.Row="1">
+                    <DataGrid x:Name="DataGrid" Style="{StaticResource DataGrid}"
+                              ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+                              MouseDoubleClick="DataGrid_OnMouseDoubleClick"
+                              AlternationCount="2">
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="姓名" Width="2*"
+                                                Binding="{Binding Name}"
+                                                ElementStyle="{StaticResource TextBlockstyle}" />
+                            <DataGridTextColumn Header="工号" Width="2*"
+                                                Binding="{Binding JobNumber}"
+                                                ElementStyle="{StaticResource TextBlockstyle}" />
+                            <DataGridTextColumn Header="柜号" Width="1*"
+                                                Binding="{Binding GroupId}"
+                                                ElementStyle="{StaticResource TextBlockstyle}" />
+                            <DataGridTextColumn Header="柜门号" Width="1*"
+                                                Binding="{Binding DeviceId }"
+                                                ElementStyle="{StaticResource TextBlockstyle}" />
+                            <DataGridTextColumn Header="部门" Width="2*"
+                                                Binding="{Binding Department }"
+                                                ElementStyle="{StaticResource TextBlockstyle}" />
+                            <DataGridTextColumn Header="身份证号" Width="2*"
+                                                Binding="{Binding IdentityCardId }"
+                                                ElementStyle="{StaticResource TextBlockstyle}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+        <my:MinerInfoShowControl x:Name="MinerInfoShowControl8" Grid.RowSpan="2" Grid.Column="1" />
+        <Grid x:Name="Gridbtn" Grid.Column="1" Grid.Row="2" Background="AliceBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="ChangeBtn"  Content="修改" Grid.Column="0" Click="ChangeBtn_OnClick" Style="{StaticResource MyWpfButton}" ToolTip="只允许修改除姓名、柜号、柜门号、Tm卡号外的其他信息。" />
+            <Button x:Name="DeleteBtn"  Content="删除" Grid.Column="1" Click="DeleteBtn_OnClick" Style="{StaticResource MyWpfButton}" ToolTip="删除员工后，此充电位将变为备用状态。"/>
+            <Button x:Name="AddBtn"  Content="添加" Grid.Column="2" Click="AddBtn_OnClick"  Style="{StaticResource MyWpfButton}" ToolTip="只允许在备用充电位处添加员工。"/>
+            <Button x:Name="ExportResultsBtn"  Content="导出结果" Grid.Column="3" Click="ExportResultsBtn_OnClick" Style="{StaticResource MyWpfButton}" />
+        </Grid>
+    </Grid>
+</Window>

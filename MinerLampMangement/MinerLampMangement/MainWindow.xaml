@@ -1,0 +1,220 @@
+﻿<Window x:Class="MinerLampMangement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Model="clr-namespace:MinerLampMangement.Model"
+        mc:Ignorable="d"
+        Title="充电柜智能管理" Height="600" Width="700" WindowState="Maximized" Icon="Image/init.png">
+    <Grid>
+        <DockPanel Name="HeaDockPanel">
+            <Menu DockPanel.Dock="Top" Height="25" Background="#FF9DB8EE" FontSize="12">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel VerticalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem Header="基础数据设置" Name="SysItem">
+                    <MenuItem Header="系统设置" Name="PersonMangerItem" Click="SystemSet_OnClick" />
+                    <MenuItem Header="系统初始化" x:Name="DeviceInit" Click="DeviceInit_OnClick" />
+                </MenuItem>
+                <MenuItem Header="充电柜管理" Name="HelpItem2">
+                    <MenuItem Header="充电位管理" Click="CabinetManage_OnClick" />
+                    <MenuItem Header="LED显示设置" />
+                </MenuItem>
+
+                <MenuItem Header="查询统计" Name="HelpItem">
+                    <MenuItem Header="矿工信息查询" Click="MinerInfoQuery_OnClick" />
+                    <MenuItem Header="矿灯信息查询" Click="LampQuery_OnClick" />
+                    <MenuItem Header="矿工考勤统计" Click="WorkTimeQuery_OnClick" />
+                </MenuItem>
+                <MenuItem Header="数据维护" Name="HightLeaveItem">
+                    <MenuItem Header="导入导出数据" Name="InOutData" Click="InOutData_OnClick" />
+                    <MenuItem Header="数据库备份" Name="DatebaseBackUp" Click="DatebaseBackUp_OnClick" />
+                </MenuItem>
+                <MenuItem Header="员工信息维护" Name="MoveDataItem" BorderBrush="{x:Null}">
+                    <MenuItem Header="员工信息查询" Click="MinerInfoQuery_OnClick" />
+                    <MenuItem Header="员工信息修改" Click="MinerInfoChange_OnClick" />
+                    <MenuItem Header="员工信息添加" Click="MinerInfoAdd_OnClick" />
+                    <MenuItem Header="矿工信息删除" Click="MinerInfoDelete_OnClick" />
+                </MenuItem>
+
+
+                <MenuItem Header="帮助" Name="HelpItem3" />
+            </Menu>
+            <WrapPanel DockPanel.Dock="Top" Height="40">
+                <WrapPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Blue" Offset="1" />
+                        <GradientStop Color="#FF9DB8EE" Offset="0" />
+                    </LinearGradientBrush>
+                </WrapPanel.Background>
+
+                <Button Name="CabinetSetup" ToolTip="充电柜设置" Click="SystemSet_OnClick"
+                        BorderThickness="0" Margin="8,0,0,0">
+                    <Button.Background>
+                        <ImageBrush />
+                    </Button.Background>
+                    <Button.Content>
+                        <Image Source="Image/CabinetSetup.png" />
+                    </Button.Content>
+                </Button>
+                <Button Name="MinerInfoQuery" ToolTip="矿工信息查询" Click="MinerInfoQuery_OnClick"
+                        BorderThickness="0" Margin="10,0,0,0">
+                    <Button.Background>
+                        <ImageBrush />
+                    </Button.Background>
+                    <Button.Content>
+                        <Image Source="Image/MinerInfoQuery.png" />
+                    </Button.Content>
+                </Button>
+                <Button Name="MinerInfoAdd" ToolTip="矿工信息添加" Click="MinerInfoAdd_OnClick"
+                        BorderThickness="0" Margin="10,0,0,0">
+                    <Button.Background>
+                        <ImageBrush />
+                    </Button.Background>
+                    <Button.Content>
+                        <Image Source="Image/MinerInfoAdd.ico" />
+                    </Button.Content>
+                </Button>
+                <Button Name="WorkTimeQuery" ToolTip="矿工考勤查询" Click="WorkTimeQuery_OnClick"
+                        BorderThickness="0" Margin="10,0,0,0">
+                    <Button.Background>
+                        <ImageBrush />
+                    </Button.Background>
+                    <Button.Content>
+                        <Image Source="Image/WorkTimeQuery.png" />
+                    </Button.Content>
+                </Button>
+                <Button Name="LampQuery" ToolTip="矿灯信息查询" Click="LampQuery_OnClick"
+                        BorderThickness="0" Margin="10,0,0,0">
+                    <Button.Background>
+                        <ImageBrush />
+                    </Button.Background>
+                    <Button.Content>
+                        <Image Source="Image/LampQuery.png"/>
+                    </Button.Content>
+                </Button>
+
+                <Button Name="QueryTimeout" ToolTip="超时下井统计" Click="QueryTimeout_OnClick"
+                        BorderThickness="0" Margin="10,0,0,0">
+                    <Button.Background>
+                        <ImageBrush />
+                    </Button.Background>
+                    <Button.Content>
+                        <Image Source="Image/QueryTimeout.png" />
+                    </Button.Content>
+                </Button>
+                <CheckBox Width="40" Name="PollingCabinetcheckbox" BorderThickness="0" Margin="10,0,0,0"
+                          Style="{StaticResource MyCheckBox}" Unchecked="PollingCabinetcheckbox_OnUnchecked"
+                          Checked="PollingCabinet_OnChecked" />
+            </WrapPanel>
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*" />
+                    <RowDefinition MinHeight="20" MaxHeight="25" />
+                    <RowDefinition MinHeight="20" MaxHeight="25" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.RowSpan="2" BorderBrush="Blue" BorderThickness="0,0,2,0">
+                    <DockPanel Margin="1,1,2,0" LastChildFill="False">
+                        <Expander x:Name="Ep1" Header="信息浏览"
+                                  Style="{StaticResource ExpanderStyle}" DockPanel.Dock="Top">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="LeftNavigation" />
+                            </ScrollViewer>
+                        </Expander>
+                        <Expander x:Name="Ep2" Header="部门汇总" Style="{StaticResource ExpanderStyle}"
+                                  DockPanel.Dock="Top">
+                            <TreeView Name="TreeView" BorderThickness="0" FontSize="12">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type Model:TreeviewDepartment}"
+                                                              ItemsSource="{Binding Path=Children}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16"
+                                                   Height="16" Margin="0,0,5,5" />
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </Expander>
+                        <Expander x:Name="Ep3" Header="统计汇总" Style="{StaticResource ExpanderStyle}"
+                                  DockPanel.Dock="Top">
+                            <StackPanel Margin="20,0,0,0">
+                                <TextBlock x:Name="Totalcabinet" Text="共有充电柜：  " />
+                                <TextBlock x:Name="Totaldoor" Text="共有充电位：  " />
+                                <TextBlock x:Name="Totalminer" Text="共有矿工：     " />
+                                <TextBlock x:Name="Upminer" Text="井上矿工：     " />
+                                <TextBlock x:Name="Downminer" Text="井下矿工：     " />
+                                <TextBlock x:Name="Charginglamp" Text="充电矿灯：     " />
+                                <TextBlock x:Name="Fulllamp" Text="充满矿灯：     " />
+                                <TextBlock x:Name="Usinglamp" Text="使用矿灯：     " />
+                                <TextBlock x:Name="Problemlamp" Text="故障矿灯：     " />
+                                <TextBlock x:Name="Sparelamp" Text="备用矿灯：     " />
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="初期功能按钮" Visibility="Hidden" Style="{StaticResource ExpanderStyle}"
+                                  DockPanel.Dock="Top">
+                            <StackPanel>
+                                <!--                                <Button x:Name="Button" Content="插入数据" Click="button_Click" />-->
+                                <!--                                <Button x:Name="Button1" Content="插入objectid" Click="button1_Click" />-->
+                                <!--                                <Button x:Name="Button2" Content="删除" Click="Button2_OnClick" />-->
+
+                            </StackPanel>
+                        </Expander>
+                    </DockPanel>
+                </Border>
+
+
+                <Grid x:Name="GridStatusShow" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="10" />
+                        <RowDefinition MinHeight="10" />
+                        <RowDefinition MinHeight="10" />
+                        <RowDefinition MinHeight="10" />
+                        <RowDefinition MinHeight="10" />
+                        <RowDefinition MinHeight="10" />
+                        <RowDefinition MinHeight="10" />
+                        <RowDefinition MinHeight="10" />
+                        <RowDefinition MinHeight="10" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                        <ColumnDefinition MinWidth="10" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <!--底部状态栏-->
+                <StatusBar Grid.Row="2" Grid.ColumnSpan="2" Background="#FF9DB8EE">
+                    <TextBlock x:Name="UsernameTextBlock" Text="登录用户名：" Margin="10 0 0 0" />
+                    <TextBlock x:Name="TimeTextBlock" Text="登陆时间：" Margin="10 0 0 0" />
+                </StatusBar>
+                <StatusBar Grid.Row="2" Grid.Column="2" Background="#FF9DB8EE" FlowDirection="RightToLeft">
+                    <TextBlock x:Name="TextBlockUnInit" Text="：备用：" />
+                    <TextBlock x:Name="TextBlockProblem" Text="故障：" />
+                    <TextBlock x:Name="TextBlockUsing" Text="使用：" />
+                    <TextBlock x:Name="TextBlockFull" Text="充满：" />
+                    <TextBlock x:Name="TextBlockCharging" Text="充电：" />
+                    <TextBlock x:Name="TextBlockCabinetId" Text="当前柜号" />
+                    <TextBlock x:Name="aaabox" />
+
+                </StatusBar>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>

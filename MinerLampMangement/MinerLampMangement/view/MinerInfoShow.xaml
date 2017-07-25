@@ -1,0 +1,63 @@
+﻿<Window x:Class="MinerLampMangement.view.MinerInfoShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my="clr-namespace:MinerLampMangement.view.view2"
+        mc:Ignorable="d"
+        Title="员工信息及考勤记录" Height="500" Width="800" WindowStartupLocation="CenterScreen" Icon="../Image/5.png">
+    <Grid>
+        <TabControl SelectionChanged="Selector_OnSelectionChanged">
+            <TabItem x:Name="TabItem1" Header="基本信息">
+                <my:MinerInfoShowControl x:Name="MinerInfoShowControl"/>
+            </TabItem>
+            <TabItem x:Name="TabItem2" Header="考勤与矿灯记录">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition MaxHeight="12" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="工作记录" Grid.Column="0">
+                        <DataGrid Name="DataGrid1" Style="{StaticResource DataGrid}"
+                                  ColumnHeaderStyle="{StaticResource DataGridColumnHeader}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="下井时间" Width="1*"
+                                                    Binding="{Binding DownTime}" 
+                                                    ElementStyle="{StaticResource TextBlockstyle}"/>
+                                <DataGridTextColumn Header="上井时间" Width="1*"
+                                                    Binding="{Binding UpTime}" 
+                                                    ElementStyle="{StaticResource TextBlockstyle}"/>
+                                <DataGridTextColumn Header="工作时长" Width="1*"
+                                                    Binding="{Binding WorkTime }" 
+                                                    ElementStyle="{StaticResource TextBlockstyle}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+
+                    <GroupBox Header="矿灯状态记录" Grid.Column="1">
+                        <DataGrid x:Name="DataGrid2" Style="{StaticResource DataGrid}"
+                                  ColumnHeaderStyle="{StaticResource DataGridColumnHeader}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="状态" Width="1*"
+                                                    Binding="{Binding Path= LampStatus }" 
+                                                    ElementStyle="{StaticResource TextBlockstyle}"/>
+                                <DataGridTextColumn Header="时间" Width="2*"
+                                                    Binding="{Binding Path=LampTime }" 
+                                                    ElementStyle="{StaticResource TextBlockstyle}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </GroupBox>
+                    <TextBlock Grid.Row="1" Text="(此处只显示最近三个月的记录信息)" VerticalAlignment="Center"></TextBlock>
+                    <Button Content="导出Excel" Grid.Row="2" Style="{StaticResource MyWpfButton}" /> 
+                    <Button x:Name="ExportResultsBtn" Content="导出Excel" Grid.Row="2" Grid.Column="1" Click="ExportResultsBtn_OnClick" Style="{StaticResource MyWpfButton}" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
